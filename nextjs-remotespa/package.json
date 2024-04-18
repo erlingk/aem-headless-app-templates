@@ -7,34 +7,34 @@
     "start": "next start"
   },
   "dependencies": {
-    "@adobe/aem-headless-client-js": "^3.1.1",
-    "@adobe/aem-react-editable-components": "^2.0.0",
-    "@adobe/aem-spa-page-model-manager": "^1.4.0",
+    "@adobe/aem-headless-client-js": "3.3.3",
+    "@adobe/aem-react-editable-components": "2.1.1",
+    "@adobe/aem-spa-page-model-manager": "1.5.0",
     "@sb1/ffe-buttons-react": "16.0.6",
     "@sb1/ffe-core": "26.0.0",
     "@sb1/ffe-core-react": "5.0.3",
     "@sb1/ffe-icons-react": "7.3.3",
-    "@xmldom/xmldom": "^0.8.2",
-    "less": "^4.2.0",
-    "less-loader": "^12.2.0",
-    "next": "12.3.0",
-    "next-with-less": "^3.0.1",
+    "@xmldom/xmldom": "0.8.10",
+    "less": "4.2.0",
+    "less-loader": "12.2.0",
+    "next": "14.2.2",
+    "next-with-less": "3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "6.22.3"
   },
   "devDependencies": {
-    "@headlessui/react": "^1.6.6",
-    "@heroicons/react": "^1.0.6",
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "autoprefixer": "^10.4.8",
-    "postcss": "^8.4.16",
-    "postcss-import": "^16.1.0",
-    "sass": "^1.54.8",
-    "tailwindcss": "^3.1.8",
-    "webpack-assets-manifest": "^5.1.0"
+    "@headlessui/react": "1.7.19",
+    "@heroicons/react": "1.0.6",
+    "@tailwindcss/aspect-ratio": "0.4.2",
+    "autoprefixer": "10.4.19",
+    "postcss": "8.4.38",
+    "postcss-import": "16.1.0",
+    "sass": "1.75.0",
+    "tailwindcss": "3.4.3",
+    "webpack-assets-manifest": "5.2.1"
   },
   "engines": {
-    "node": "^16 || ^18"
+    "node": "^16 || ^18 || ^20"
   }
 }
