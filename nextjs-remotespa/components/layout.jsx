@@ -30,7 +30,7 @@ export default function Layout({ children, pages, subPages }) {
   const router = useRouter();
   const isCurrentPage = (currPath) => {
     const path = router.asPath === '/' ? '/home' : router.asPath;
-    return path.indexOf(currPath) === 0;
+    return path === currPath;
   };
   return (
     <>
