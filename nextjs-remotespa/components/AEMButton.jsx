@@ -16,16 +16,22 @@ import { EditableComponent } from '@adobe/aem-react-editable-components'
 
 const { NEXT_PUBLIC_AEM_SITE } = process.env;
 
-export const TitleEditConfig = {
-    emptyLabel: 'Title',
+export const ButtonConfig = {
+    emptyLabel: 'Button',
     isEmpty: function(props) {
         return props.text == null || props.text.trim().length === 0;
     },
-    resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/title`
+    resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/button`
 };
 
-export const Title = (props) => {
-    return (<h1 className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 border border-blue-700 rounded">{props.text}</h1>)
+export const Button = (props) => {
+    return (
+        <a href={props.buttonLink.url}
+           className="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-full"
+        >
+            {props.text}
+        </a>
+    )
 };
 
-export const AEMTitle = (props) => <EditableComponent config={TitleEditConfig} {...props}><Title/></EditableComponent>;
+export const AEMButton = (props) => <EditableComponent config={ButtonConfig} {...props}><Button/></EditableComponent>;

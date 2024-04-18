@@ -11,7 +11,7 @@
  *
  */
 
-async function getPages(rootPath) {
+export async function getPages(rootPath) {
   const server = process.env.NEXT_PUBLIC_AEM_HOST;
   const getRootPageModel = await (
     await fetch(`${server}${rootPath}.model.json`, {
@@ -33,7 +33,51 @@ async function getPages(rootPath) {
 
   // add custom pages
   filteredPages.push({ name: 'Adventures', href: '/adventures' });
-  
+
   return filteredPages;
 }
+
+export async function getSubPages(rootPath, pagePath) {
+  pagePath = trimPagePath({ rootPath, pagePath });
+
+  const server = process.env.NEXT_PUBLIC_AEM_HOST;
+  const getRootPageModel = await (
+      await fetch(`${server}${rootPath}.model.json`, {
+        headers: {
+          Authorization: 'Basic YWRtaW46YWRtaW4=',
+        },
+      })
+  ).json();
+
+    const subPages = getRootPageModel[':children'];
+    const filteredPages = [];
+
+    for (const subPage in subPages) {
+        const regex = new RegExp(`^${pagePath}\\/([\\w-]+)$`, 'i');
+        const match = subPage.match(regex);
+
+    if (match) {
+      // If subPage is e.g. /content/wknd-app/us/en/privat/daglig-bruk, the href we want to extract is /privat/daglig-bruk
+      const href = subPage.match(/\/([^/]+\/[^/]+)$/)[0];
+      filteredPages.push({ href: href, name: subPages[subPage]['title'] });
+    }
+  }
+  return filteredPages;
+}
+
+function trimPagePath ({ rootPath, pagePath }) {
+    const rootPathSegments = rootPath.split('/');
+    const pagePathSegments = pagePath.split('/');
+
+    // Check if pagePath is directly one level deeper than rootPath
+    if (pagePathSegments.length === rootPathSegments.length + 1) {
+        // pagePath is exactly one level deeper, return as is
+        return pagePath;
+    } else {
+        // pagePath is more than one level deeper, trim it
+        const trimmedPathSegments = pagePathSegments.slice(0, rootPathSegments.length + 1);
+        return trimmedPathSegments.join('/');
+    }
+}
+
 export default getPages;

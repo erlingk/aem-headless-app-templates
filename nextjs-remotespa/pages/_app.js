@@ -12,6 +12,7 @@
  */
 
 import '../styles/index.scss';
+import '../styles/index.less';
 import { ModelManager } from '@adobe/aem-spa-page-model-manager';
 import CustomModelClient from '../lib/CustomModelClient';
 import '../components/import-components';

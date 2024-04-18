@@ -17,18 +17,19 @@ import {
   ResponsiveGrid,
   fetchModel,
 } from '@adobe/aem-react-editable-components';
-import getPages from '../lib/getPages';
+import { getPages, getSubPages} from '../lib/getPages';
 
 const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
 
-export default function Home({ model, pagePath, pages }) {
+export default function Home({ model, pagePath, pages, subPages }) {
   return (
-    <Layout pages={pages}>
+    <Layout pages={pages} subPages={subPages}>
       <Head>
         <title>{model.title}</title>
       </Head>
       <section>
         <div className="px-2 py-4 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-2 lg:py-6">
+          {pagePath}
           <ResponsiveGrid
             key={pagePath}
             model={model}
@@ -47,6 +48,8 @@ export async function getServerSideProps(context) {
   }`;
 
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
+  const subPages = await getSubPages(NEXT_PUBLIC_AEM_ROOT, pagePath);
+
   const model = await fetchModel({
     pagePath,
     itemPath: 'root/responsivegrid',
@@ -62,6 +65,7 @@ export async function getServerSideProps(context) {
       model,
       pagePath,
       pages,
+      subPages,
     },
   };
 }

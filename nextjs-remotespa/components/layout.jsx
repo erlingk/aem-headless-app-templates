@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { ActionButton, ButtonGroup } from '@sb1/ffe-buttons-react';
 
 const { NEXT_PUBLIC_URL } = process.env;
 
@@ -25,7 +26,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Layout({ children, pages }) {
+export default function Layout({ children, pages, subPages }) {
   const router = useRouter();
   const isCurrentPage = (currPath) => {
     const path = router.asPath === '/' ? '/home' : router.asPath;
@@ -47,90 +48,131 @@ export default function Layout({ children, pages }) {
       <Disclosure as="nav" className="bg-gray-100">
         {({ open }) => (
           <>
-            <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-              <div className="relative flex items-center justify-between h-16">
-                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                  {/* Mobile menu button*/}
-                  <Disclosure.Button className="inline-flex items-center justify-center p-2 text-gray-800 rounded-md hover:text-gray-700 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                    <span className="sr-only">Open main menu</span>
-                    {open ? (
-                      <XIcon className="block w-6 h-6" aria-hidden="true" />
-                    ) : (
-                      <MenuIcon className="block w-6 h-6" aria-hidden="true" />
-                    )}
-                  </Disclosure.Button>
-                </div>
+              <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                  <div className="relative flex items-center justify-between h-16">
+                      <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                          {/* Mobile menu button*/}
+                          <Disclosure.Button
+                              className="inline-flex items-center justify-center p-2 text-gray-800 rounded-md hover:text-gray-700 hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                              <span className="sr-only">Open main menu</span>
+                              {open ? (
+                                  <XIcon className="block w-6 h-6" aria-hidden="true"/>
+                              ) : (
+                                  <MenuIcon className="block w-6 h-6" aria-hidden="true"/>
+                              )}
+                          </Disclosure.Button>
+                      </div>
 
-                <div className="flex items-center justify-center flex-1 sm:items-stretch sm:justify-start">
-                  <div className="flex items-center flex-shrink-0">
-                    <a href="/">
-                      <img
-                        className="block w-auto h-8 lg:hidden"
-                        src={NEXT_PUBLIC_URL + '/wknd-logo-dk.svg'}
-                        alt="WKND"
-                      />
-                      <img
-                        className="hidden w-auto h-8 lg:block"
-                        src={NEXT_PUBLIC_URL + '/wknd-logo-dk.svg'}
-                        alt="WKND"
-                      />
-                    </a>
+                      <div
+                          className="flex w-full items-center justify-between flex-1 sm:items-stretch sm:justify-start">
+                          <div className="hidden sm:block sm:ml-6">
+                              <div className="flex space-x-4">
+
+                                  {pages.map((item) => (
+
+                                      <Link key={item.name} href={item.href}>
+                                          <a
+                                              aria-current={
+                                                  isCurrentPage(item.href) ? 'page' : undefined
+                                              }
+                                              className={classNames(
+                                                  isCurrentPage(item.href)
+                                                      ? 'bg-yellow-300 text-gray-700'
+                                                      : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
+                                                  'px-3 py-2 rounded-md text-sm font-medium'
+                                              )}>
+                                              {item.name}
+                                          </a>
+                                      </Link>
+                                  ))}
+                              </div>
+                          </div>
+                          <div className="hidden sm:block sm:ml-6"/>
+                          <div className="hidden sm:block sm:ml-6"/>
+
+                          <div className="flex-grow"></div>
+
+                          <div className="flex items-center flex-shrink-0">
+                              <a href="/privat">
+                                  <img
+                                      className="block w-auto h-8 lg:hidden"
+                                      src={NEXT_PUBLIC_URL + '/logo.svg'}
+                                      alt="SB1"
+                                  />
+                                  <img
+                                      className="hidden w-auto h-8 lg:block"
+                                      src={NEXT_PUBLIC_URL + '/logo.svg'}
+                                      alt="SB1"
+                                  />
+                              </a>
+                          </div>
+
+                          <div className="flex-grow"></div>
+
+                          <div className="flex items-center flex-shrink-0">
+                              <ButtonGroup thin={true}>
+                                  <ActionButton onClick={f => console.log('Søk')}>Søk</ActionButton>
+                                  <ActionButton onClick={f => console.log('Bli kunde')}>Bli kunde</ActionButton>
+                                  <ActionButton onClick={f => console.log('Login')}>Login</ActionButton>
+                              </ButtonGroup>
+                          </div>
+                      </div>
                   </div>
-                  <div className="hidden sm:block sm:ml-6">
-                    <div className="flex space-x-4">
+                  <div className="relative flex items-center justify-between h-16">
+                      <div className="hidden sm:block sm:ml-6">
+                          <div className="flex space-x-4">
+                              {subPages?.map((item) => (
+                                  <Link key={item.name} href={item.href}>
+                                      <a
+                                          aria-current={
+                                              isCurrentPage(item.href) ? 'page' : undefined
+                                          }
+                                          className={classNames(
+                                              isCurrentPage(item.href)
+                                                  ? 'bg-yellow-300 text-gray-700'
+                                                  : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
+                                              'px-3 py-2 rounded-md text-sm font-medium'
+                                          )}>
+                                          {item.name}
+                                      </a>
+                                  </Link>
+                              ))}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <Disclosure.Panel className="sm:hidden">
+                  <div className="px-2 pt-2 pb-3 space-y-1">
                       {pages.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a
-                            aria-current={
-                              isCurrentPage(item.href) ? 'page' : undefined
-                            }
-                            className={classNames(
-                              isCurrentPage(item.href)
-                                ? 'bg-yellow-300 text-gray-700'
-                                : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            )}>
-                            {item.name}
-                          </a>
-                        </Link>
+                          <Disclosure.Button
+                              key={item.name}
+                              as="a"
+                              href={item.href}
+                              className={classNames(
+                                  isCurrentPage(item.href)
+                                      ? 'bg-yellow-300 text-gray-700'
+                                      : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
+                                  'block px-3 py-2 rounded-md text-base font-medium'
+                              )}
+                              aria-current={
+                                  isCurrentPage(item.href) ? 'page' : undefined
+                              }>
+                              {item.name}
+                          </Disclosure.Button>
                       ))}
-                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <Disclosure.Panel className="sm:hidden">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {pages.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      isCurrentPage(item.href)
-                        ? 'bg-yellow-300 text-gray-700'
-                        : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
-                      'block px-3 py-2 rounded-md text-base font-medium'
-                    )}
-                    aria-current={
-                      isCurrentPage(item.href) ? 'page' : undefined
-                    }>
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-            </Disclosure.Panel>
+              </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-      <main>{children}</main>
-      <footer className="text-center bg-gray-200 lg:text-left">
-        <div className="p-4 text-center text-gray-700">
-          © 2022 Copyright:
-          <a className="text-gray-800" href="https://wknd.site/">
+        <main>{children}</main>
+        <footer className="text-center bg-gray-200 lg:text-left">
+            <div className="p-4 text-center text-gray-700">
+                © 2024 Copyright:
+                <a className="text-gray-800" href="https://wknd.site/">
             {' '}
-            WKND Site
+            SB1 Footer
           </a>
         </div>
       </footer>

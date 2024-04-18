@@ -11,10 +11,11 @@
  *
  */
 
+const withLess = require("next-with-less");
 const path = require('path');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
-module.exports = {
+module.exports = withLess({
     reactStrictMode: true,
     async headers() {
         return [
@@ -65,4 +66,7 @@ module.exports = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
-};
+    lessLoaderOptions: {
+
+    },
+});
