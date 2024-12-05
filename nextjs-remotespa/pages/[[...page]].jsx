@@ -43,8 +43,16 @@ export default function Home({ model, pagePath, pages, subPages }) {
 }
 
 export async function getServerSideProps(context) {
-  const pagePath = `/content/wknd-app/us/en/${
+  /*const pagePath = `/content/wknd-app/us/en/${
     context.query.page?.join('/') || 'home'
+  }`;*/
+
+  /*const pagePath = `/content/sb1/nb/${
+      context.query.page?.join('/') || 'home'
+  }`;*/
+
+  const pagePath = `/content/sites/sb1/nb/smn/${
+      context.query.page?.join('/') || 'home'
   }`;
 
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);

@@ -23,11 +23,13 @@ export const ButtonConfig = {
     },
     resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/button`
 };
-
+//class="ffe-button ffe-button--action"
 export const Button = (props) => {
     return (
-        <a href={props.buttonLink.url}
-           className="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-full"
+        <a href={props.buttonLink?.url}
+           //className="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-full"
+           className="ffe-button ffe-button--action my-2"
+           //className="ffe-button my-2"
         >
             {props.text}
         </a>

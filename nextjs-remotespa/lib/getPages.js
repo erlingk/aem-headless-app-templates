@@ -13,6 +13,8 @@
 
 export async function getPages(rootPath) {
   const server = process.env.NEXT_PUBLIC_AEM_HOST;
+
+  console.log(`### Fetch URL: ${server}${rootPath}.model.json`);
   const getRootPageModel = await (
     await fetch(`${server}${rootPath}.model.json`, {
       headers: {
@@ -25,7 +27,9 @@ export async function getPages(rootPath) {
 
   const filteredPages = [];
   for (const page in pages) {
-    const match = page.match(/^\/content\/wknd-app\/us\/en\/(\w+)$/i);
+    //const match = page.match(/^\/content\/wknd-app\/us\/en\/(\w+)$/i);
+    //const match = page.match(/^\/content\/sb1\/nb\/(\w+)$/i);
+    const match = page.match(/^\/content\/sites\/sb1\/nb\/smn\/(\w+)$/i);
     if (match) {
       filteredPages.push({ href: `/${match[1]}`, name: pages[page]['title'] });
     }
@@ -34,6 +38,7 @@ export async function getPages(rootPath) {
   // add custom pages
   filteredPages.push({ name: 'Adventures', href: '/adventures' });
 
+    console.log('### pages: ', filteredPages);
   return filteredPages;
 }
 
@@ -58,10 +63,13 @@ export async function getSubPages(rootPath, pagePath) {
 
     if (match) {
       // If subPage is e.g. /content/wknd-app/us/en/privat/daglig-bruk, the href we want to extract is /privat/daglig-bruk
-      const href = subPage.match(/\/([^/]+\/[^/]+)$/)[0];
+        //const href = subPage.match(/\/([^/]+\/[^/]+)$/)[0];
+             const href = subPage.match(/\/([^\/]+\/[^\/]+)$/)[0];
+        console.log('### href: ', href);
       filteredPages.push({ href: href, name: subPages[subPage]['title'] });
     }
   }
+    console.log('### subpages: ', filteredPages);
   return filteredPages;
 }
 

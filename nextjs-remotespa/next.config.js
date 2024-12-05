@@ -21,26 +21,51 @@ module.exports = withLess({
         return [
             {
                 source: '/api/getNextProps',
-                headers: [ {
+                headers: [{
                     key: 'Access-Control-Allow-Origin',
                     value: '*'
-                } ]
+                }]
             },
             {
                 source: '/asset-manifest.json',
-                headers: [ {
+                headers: [{
                     key: 'Access-Control-Allow-Origin',
                     value: '*'
-                } ]
+                }]
+            },
+            {
+                source: '/manifest.json',
+                headers: [{
+                    key: 'Access-Control-Allow-Origin',
+                    value: '*'
+                }]
             },
             {
                 source: '/_next/:path*',
-                headers: [ {
+                headers: [{
                     key: 'Access-Control-Allow-Origin',
                     value: '*'
-                } ]
+                }]
             }
         ]
+    },
+
+    /*async redirects() {
+        return [
+            {
+                source: '/',                      // The root URL
+                destination: '/nb/smn/privat',   // Redirect to this URL
+                permanent: true,                  // Use 'true' for a permanent redirect (301), 'false' for temporary (302)
+            },
+        ];
+    },*/
+    async rewrites() {
+        return [
+            {
+                source: '/nb/smn/:slug*',        // The URL to match for rewriting
+                destination: '/:slug*',          // Internal path to which it should be rewritten
+            }
+        ];
     },
     webpack(config) {
         config.plugins.push(new WebpackAssetsManifest({

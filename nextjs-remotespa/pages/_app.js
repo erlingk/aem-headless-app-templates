@@ -16,6 +16,7 @@ import '../styles/index.less';
 import { ModelManager } from '@adobe/aem-spa-page-model-manager';
 import CustomModelClient from '../lib/CustomModelClient';
 import '../components/import-components';
+//import { useRouter } from 'next/router';
 
 const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST);
 ModelManager.initializeAsync({
@@ -23,5 +24,14 @@ ModelManager.initializeAsync({
 });
 
 export default function App({ Component, pageProps }) {
+  /*const router = useRouter();
+
+  // Redirect to /privat if the path is exactly "/"
+  if (router.pathname === '/') {
+    if (typeof window !== 'undefined') {
+      window.location.replace('/nb/smn/privat');
+    }
+  }*/
+
   return <Component {...pageProps} />;
 }
